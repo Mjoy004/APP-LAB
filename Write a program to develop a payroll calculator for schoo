@@ -1,0 +1,34 @@
+class Employee:
+    def __init__(self, name, hours_worked, hourly_rate):
+        self.name = name
+        self.hours_worked = hours_worked
+        self.hourly_rate = hourly_rate
+
+    def calculate_salary(self):
+        return self.hours_worked * self.hourly_rate
+
+    def display_info(self):
+        print(f"Employee: {self.name}")
+        print(f"Hours Worked: {self.hours_worked}")
+        print(f"Hourly Rate: ${self.hourly_rate:.2f}")
+        print(f"Total Salary: ${self.calculate_salary():.2f}\n")
+
+
+def main():
+    employees = []
+    num_employees = int(input("Enter the number of employees: "))
+    
+    for _ in range(num_employees):
+        name = input("Enter employee name: ")
+        hours_worked = float(input("Enter hours worked: "))
+        hourly_rate = float(input("Enter hourly rate: "))
+        employees.append(Employee(name, hours_worked, hourly_rate))
+    
+    print("\nPayroll Summary:")
+    print("--------------------")
+    for employee in employees:
+        employee.display_info()
+
+
+if __name__ == "__main__":
+    main()
