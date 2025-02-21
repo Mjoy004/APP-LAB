@@ -1,0 +1,69 @@
+import java.util.Scanner;
+
+// Base class
+class Employee {
+    String name, empId, designation;
+    double basicSalary;
+    
+    public Employee(String name, String empId, String designation, double basicSalary) {
+        this.name = name;
+        this.empId = empId;
+        this.designation = designation;
+        this.basicSalary = basicSalary;
+    }
+}
+
+// Derived class
+class PaySlip extends Employee {
+    double hra, da, pf, grossSalary, netSalary;
+    
+    public PaySlip(String name, String empId, String designation, double basicSalary) {
+        super(name, empId, designation, basicSalary);
+        calculateSalary();
+    }
+    
+    private void calculateSalary() {
+        hra = 0.20 * basicSalary;  // House Rent Allowance (20% of Basic)
+        da = 0.50 * basicSalary;   // Dearness Allowance (50% of Basic)
+        pf = 0.12 * basicSalary;   // Provident Fund (12% of Basic)
+        grossSalary = basicSalary + hra + da;
+        netSalary = grossSalary - pf;
+    }
+    
+    public void displayPaySlip() {
+        System.out.println("\nPay Slip");
+        System.out.println("------------------------");
+        System.out.println("Employee ID: " + empId);
+        System.out.println("Name: " + name);
+        System.out.println("Designation: " + designation);
+        System.out.println("Basic Salary: " + basicSalary);
+        System.out.println("HRA (20%): " + hra);
+        System.out.println("DA (50%): " + da);
+        System.out.println("PF (12%): " + pf);
+        System.out.println("Gross Salary: " + grossSalary);
+        System.out.println("Net Salary: " + netSalary);
+    }
+}
+
+public class PaySlipGenerator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.print("Enter Employee Name: ");
+        String name = sc.nextLine();
+        
+        System.out.print("Enter Employee ID: ");
+        String empId = sc.nextLine();
+        
+        System.out.print("Enter Designation: ");
+        String designation = sc.nextLine();
+        
+        System.out.print("Enter Basic Salary: ");
+        double basicSalary = sc.nextDouble();
+        
+        PaySlip paySlip = new PaySlip(name, empId, designation, basicSalary);
+        paySlip.displayPaySlip();
+        
+        sc.close();
+    }
+}
