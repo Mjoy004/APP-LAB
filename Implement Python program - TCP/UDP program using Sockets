@@ -1,0 +1,45 @@
+import socket
+
+def tcp_server():
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.bind(('localhost', 12345))
+    server.listen(1)
+    print("TCP Server is listening on port 12345...")
+    conn, addr = server.accept()
+    print(f"Connection from {addr} established.")
+    conn.send(b'Hello from TCP server!')
+    conn.close()
+
+def tcp_client():
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client.connect(('localhost', 12345))
+    message = client.recv(1024)
+    print("Message from server:", message.decode())
+    client.close()
+
+def udp_server():
+    server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    server.bind(('localhost', 12346))
+    print("UDP Server is listening on port 12346...")
+    data, addr = server.recvfrom(1024)
+    print(f"Received message: {data.decode()} from {addr}")
+
+def udp_client():
+    client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    client.sendto(b'Hello from UDP client!', ('localhost', 12346))
+
+def main():
+    choice = input("Enter 'tcp_server', 'tcp_client', 'udp_server', or 'udp_client': ").strip()
+    if choice == 'tcp_server':
+        tcp_server()
+    elif choice == 'tcp_client':
+        tcp_client()
+    elif choice == 'udp_server':
+        udp_server()
+    elif choice == 'udp_client':
+        udp_client()
+    else:
+        print("Invalid choice!")
+
+if __name__ == "__main__":
+    main()
